@@ -13,7 +13,21 @@ public class PointVertex {
 		num = n;
 		px = x;
 		py = y;
+		dist=new ArrayList<Double>();
 	}
-
+	void calcDist(ArrayList<PointVertex> nodes) {
+		for(int i=0;i<nodes.size();i++) {
+			PointVertex tmp=nodes.get(i);
+			if(tmp.num==num) {
+				if(i==dist.size()-1) {
+					dist.add(-1.0);
+				}else {
+					dist.add(i, -1.0);
+				}
+			}else {
+				dist.add(i,Math.sqrt((px-tmp.px)*(px-tmp.px)+(py-tmp.py)*(py-tmp.py))/10.0);
+			}
+		}
+	}
 	
 }

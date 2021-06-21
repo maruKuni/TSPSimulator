@@ -64,6 +64,18 @@ public class TSPMain extends Application{
 			System.out.println("x="+tmpx+"y="+tmpy);
 			nodes.add(new PointVertex(nodes.size(), tmpx, tmpy));
 			gc.fillOval(tmpx-Math.sqrt(5), tmpy-Math.sqrt(5), 10, 10);
+			for(int i=0;i<nodes.size();i++) {
+				nodes.get(i).calcDist(nodes);
+			}
+			/*
+			for(int i=0;i<nodes.size();i++) {
+				PointVertex tmp =nodes.get(i);
+				for(int j=0;j<nodes.size();j++) {
+					System.out.printf("%8.2f",tmp.dist.get(j));
+				}
+				System.out.println();
+			}
+			*/
 		}
 	}
 	class ButtonClicked implements EventHandler<ActionEvent>{
