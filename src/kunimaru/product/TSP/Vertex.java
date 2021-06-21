@@ -15,10 +15,5 @@ public class Vertex {
 		py = y;
 	}
 
-	void calcCost(ArrayList<Vertex> v) {
-		for (int i = 0; i < v.size(); i++) {
-			if (dist.size() <= i)
-				continue;
-		}
-	}
+	
 }
