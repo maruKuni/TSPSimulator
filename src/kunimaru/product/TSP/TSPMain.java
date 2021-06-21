@@ -5,8 +5,10 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.canvas.*;
+import java.util.*;
 public class TSPMain extends Application{
 	private Canvas cv;
 	private VBox vb;
@@ -15,6 +17,7 @@ public class TSPMain extends Application{
 	private CheckBox IterativeImprove;
 	private CheckBox SimAnn;
 	private GraphicsContext gc;
+	private ArrayList<PointVertex> nodes; 
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		launch(args);
@@ -27,12 +30,15 @@ public class TSPMain extends Application{
 		SimAnn=new CheckBox("Simulated Anealing");
 		vb=new VBox(5);
 		bt=new Button("実行");
-		cv=new Canvas(360,360);
+		cv=new Canvas(360,640);
 		gc=cv.getGraphicsContext2D();
+		nodes=new ArrayList<PointVertex>();
 		BorderPane bp=new BorderPane();
 		vb.getChildren().addAll(greedy,IterativeImprove,SimAnn,bt);
+		gc.setFill(Color.rgb(2, 2, 2));
 		bp.setLeft(cv);
 		bp.setRight(vb);
+		bp.setStyle("-fx-border-color:black;");
 		cv.setOnMouseClicked(new MouseClickedOnCanvas());
 		cv.setOnMouseEntered(new MouseThrowPoint());
 		bt.setOnAction(new ButtonClicked());
@@ -52,6 +58,12 @@ public class TSPMain extends Application{
 			/*
 			 * 各点の距離を計算するのはこのタイミングカモ
 			 */
+			double tmpx,tmpy;
+			tmpx=arg0.getSceneX();
+			tmpy=arg0.getSceneY();
+			System.out.println("x="+tmpx+"y="+tmpy);
+			nodes.add(new PointVertex(nodes.size(), tmpx, tmpy));
+			gc.fillOval(tmpx-Math.sqrt(5), tmpy-Math.sqrt(5), 10, 10);
 		}
 	}
 	class ButtonClicked implements EventHandler<ActionEvent>{
