@@ -6,6 +6,7 @@ public class PointVertex {
 	int num;
 	double px;
 	double py;
+	boolean isHighLight;
 	ArrayList<Double> dist;
 
 	public PointVertex(int n, double x, double y) {
@@ -13,6 +14,7 @@ public class PointVertex {
 		num = n;
 		px = x;
 		py = y;
+		isHighLight=false;
 		dist=new ArrayList<Double>();
 	}
 	void calcDist(ArrayList<PointVertex> nodes) {

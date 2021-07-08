@@ -61,8 +61,9 @@ public class TSPMain extends Application{
 			double tmpx,tmpy;
 			tmpx=arg0.getSceneX();
 			tmpy=arg0.getSceneY();
-			System.out.println("x="+tmpx+"y="+tmpy);
+			//System.out.println("x="+tmpx+"y="+tmpy);
 			nodes.add(new PointVertex(nodes.size(), tmpx, tmpy));
+			nodes.get(nodes.size()-1).isHighLight=false;
 			gc.fillOval(tmpx-Math.sqrt(5), tmpy-Math.sqrt(5), 10, 10);
 			for(int i=0;i<nodes.size();i++) {
 				nodes.get(i).calcDist(nodes);
