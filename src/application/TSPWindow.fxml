@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
 <BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TSPController">
    <right>
@@ -36,6 +37,9 @@
                                  <padding>
                                     <Insets bottom="5.0" />
                                  </padding>
+                                 <value>
+                                    <Color red="1.0" />
+                                 </value>
                               </ColorPicker>
                            </children>
                            <padding>
