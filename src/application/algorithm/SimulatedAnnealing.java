@@ -28,7 +28,19 @@ public class SimulatedAnnealing extends Searcher {
 
         for (int i = 0; i < step; i++) {
             //searching
-            int[] tmpRoute = generateNeighbor();
+            int tmpRoute[] = null;
+            int tmp[];
+            double tmpCost = Double.MAX_VALUE;
+            for (int j = 0; j < points.size() - 2; j++) {
+                for (int k = j + 2; k < points.size(); k++) {
+                    tmp = generateLambdaneighbor(j, k);
+                    if (calcCost(tmp) < tmpCost) {
+                        tmpRoute = tmp;
+                        tmpCost = calcCost(tmp);
+                    }
+
+                }
+            }
             if (accept(tmpRoute)) {
                 route = tmpRoute;
             }
