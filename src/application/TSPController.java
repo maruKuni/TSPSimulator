@@ -8,20 +8,19 @@ import javafx.scene.canvas.*;
 
 import java.net.*;
 import java.util.*;
+import java.util.function.Consumer;
 
+import application.algorithm.SimulatedAnnealing;
 import javafx.event.*;
 
 public class TSPController implements Initializable {
-    private enum Algorithm {
-        SA,
-    };
 
     @FXML
     private CheckBox CheckBoxSA;
     @FXML
     private Slider SliderInitialTemper, SliderSAmultipler;
     @FXML
-    private TextField textFieldSAIterate;
+    private TextField textFieldSAIterate, textFieldStep;
     @FXML
     private ColorPicker colorPickerSA;
     @FXML
@@ -32,6 +31,8 @@ public class TSPController implements Initializable {
     private GraphicsContext gc;
     private double CANVAS_WIDTH, CANVAS_HEIGHT;
     ArrayList<Point> points;
+    SimulatedAnnealing SAInstance = null;
+    double weight[][] = null;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -65,7 +66,23 @@ public class TSPController implements Initializable {
 
     @FXML
     protected void handleDoPressed(ActionEvent e) {
-
+        int route[];
+        if (weight == null) {
+            double weight[][] = new double[points.size()][points.size()];
+            for (int i = 0; i < points.size(); i++) {
+                for (int j = i; j < points.size(); j++) {
+                    Point t1 = points.get(i), t2 = points.get(j);
+                    weight[i][j] = weight[j][i] = Math.sqrt(
+                            Math.pow(t1.getX() - t2.getX(), 2.0) + Math.pow(t1.getY() - t2.getY(), 2.0));
+                }
+            }
+            SAInstance = new SimulatedAnnealing(points, weight, SliderInitialTemper.getValue(),
+                    SliderSAmultipler.getValue(),
+                    Integer.parseInt(textFieldSAIterate.getText()));
+            disableSAConfig();
+        }
+        route = SAInstance.search(Integer.parseInt(textFieldStep.getText()));
+        drawPath(route);
     }
 
     @FXML
@@ -95,5 +112,37 @@ public class TSPController implements Initializable {
         SliderSAmultipler.setDisable(false);
         textFieldSAIterate.setDisable(false);
         colorPickerSA.setDisable(false);
+    }
+
+    private void drawPath(int[] route) {
+        assert route.length == points.size();
+        clearCanvas();
+        redrawPoints();
+        gc.setStroke(colorPickerSA.getValue());
+        for (int i = 0; i < points.size(); i++) {
+            drawEdge(route[i], route[(i + 1) % route.length]);
+        }
+    }
+
+    private void drawEdge(int start, int end) {
+        Point s = points.get(start), e = points.get(end);
+        gc.strokeLine(s.getX(), s.getY(), e.getX(), e.getY());
+    }
+
+    private void redrawPoints() {
+        gc.setFill(Color.BLACK);
+        final Consumer<Point> drawPoint = p -> gc.fillOval(p.getX() - 5, p.getY() - 5, 10, 10);
+        points.stream().forEach(drawPoint);
+    }
+
+    private void clearCanvas() {
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    }
+
+    private void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.printf("%d%c", array[i], (i == array.length - 1) ? '\n' : ',');
+        }
     }
 }

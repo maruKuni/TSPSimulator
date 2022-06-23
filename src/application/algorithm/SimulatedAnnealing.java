@@ -60,8 +60,9 @@ public class SimulatedAnnealing extends Searcher {
                     tmp = j;
                 }
             }
-            assert tmp >= 0;
+            assert tmp >= 0 : i;
             route[i + 1] = tmp;
+            isVisit[tmp] = true;
         }
         for (int i = 0; i < points.size(); i++) {
             if (!isVisit[i]) {
@@ -108,5 +109,11 @@ public class SimulatedAnnealing extends Searcher {
             }
         }
         return tmp;
+    }
+
+    private void printArray(int array[]) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.printf("%d%c", array[i], (i == array.length - 1) ? '\n' : ' ');
+        }
     }
 }
