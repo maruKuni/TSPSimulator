@@ -32,7 +32,7 @@ public class TSPController implements Initializable {
     private double CANVAS_WIDTH, CANVAS_HEIGHT;
     ArrayList<Point> points;
     SimulatedAnnealing SAInstance = null;
-    double weight[][] = null;
+    private double weight[][] = null;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -68,7 +68,7 @@ public class TSPController implements Initializable {
     protected void handleDoPressed(ActionEvent e) {
         int route[];
         if (weight == null) {
-            double weight[][] = new double[points.size()][points.size()];
+            weight = new double[points.size()][points.size()];
             for (int i = 0; i < points.size(); i++) {
                 for (int j = i; j < points.size(); j++) {
                     Point t1 = points.get(i), t2 = points.get(j);
