@@ -15,4 +15,13 @@ public abstract class Searcher {
     }
 
     public abstract int[] search(int step);
+
+    protected double calcCost(int[] route) {
+        double tmp = 0;
+        for (int i = 0; i < points.size() - 1; i++) {
+            tmp += distMatrix[route[i]][route[i + 1]];
+        }
+        tmp += distMatrix[route[0]][route[route.length - 1]];
+        return tmp;
+    }
 }
