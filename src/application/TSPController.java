@@ -106,7 +106,14 @@ public class TSPController implements Initializable {
 
     @FXML
     protected void handleAllResetPressed(ActionEvent e) {
-
+        enableSAConfig();
+        points.clear();
+        weight = null;
+        clearCanvas();
+        SliderInitialTemper.setValue(1);
+        SliderSAmultipler.setValue(0.99);
+        textFieldSAIterate.setText(Integer.toString(100));
+        textFieldStep.setText(Integer.toString(10));
     }
 
     private void disableSAConfig() {
