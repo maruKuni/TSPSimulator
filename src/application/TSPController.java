@@ -46,12 +46,12 @@ public class TSPController implements Initializable {
 
     @FXML
     protected void handleCanvasClicked(MouseEvent e) {
+        weight = null;
         final double x = e.getX();
         final double y = e.getY();
-        System.out.println(x + ", " + y);
         points.add(new Point(x, y));
         gc.setFill(Color.BLACK);
-        gc.fillOval(x - 5, y - 5, 10, 10);
+        gc.fillOval(x - 2, y - 2, 4, 4);
         gc.setFill(Color.WHITE);
     }
 
