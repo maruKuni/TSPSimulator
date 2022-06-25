@@ -67,7 +67,7 @@ public class TSPController implements Initializable {
     @FXML
     protected void handleDoPressed(ActionEvent e) {
         int route[];
-        if (weight == null) {
+        if (weight == null || SAInstance == null) {
             weight = new double[points.size()][points.size()];
             for (int i = 0; i < points.size(); i++) {
                 for (int j = i; j < points.size(); j++) {
@@ -94,7 +94,14 @@ public class TSPController implements Initializable {
 
     @FXML
     protected void handleConfigResetPressed(ActionEvent e) {
-
+        SAInstance = null;
+        clearCanvas();
+        redrawPoints();
+        enableSAConfig();
+        SliderInitialTemper.setValue(0);
+        SliderSAmultipler.setValue(0);
+        textFieldSAIterate.setText(Integer.toString(100));
+        textFieldStep.setText(Integer.toString(10));
     }
 
     @FXML
@@ -133,7 +140,7 @@ public class TSPController implements Initializable {
 
     private void redrawPoints() {
         gc.setFill(Color.BLACK);
-        final Consumer<Point> drawPoint = p -> gc.fillOval(p.getX() - 5, p.getY() - 5, 10, 10);
+        final Consumer<Point> drawPoint = p -> gc.fillOval(p.getX() - 2, p.getY() - 2, 4, 4);
         points.stream().forEach(drawPoint);
     }
 
