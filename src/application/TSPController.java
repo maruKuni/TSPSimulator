@@ -87,7 +87,9 @@ public class TSPController implements Initializable {
 
     @FXML
     protected void handlePointResetPressed(ActionEvent e) {
-
+        points.clear();
+        weight = null;
+        clearCanvas();
     }
 
     @FXML
